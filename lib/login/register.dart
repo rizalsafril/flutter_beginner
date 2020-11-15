@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_beginner/data/userservice/userservice.dart';
+import 'package:flutter_beginner/login/loading.dart';
 import 'package:flutter_beginner/login/login.dart';
+import 'package:flutter_beginner/wrapper.dart';
 
 class Register extends StatefulWidget {
   Register({Key key}) : super(key: key);
@@ -9,6 +12,8 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
+  bool loading = false;
+
   GlobalKey<FormState> _formKey = GlobalKey();
   final username = TextEditingController();
   final email = TextEditingController();
@@ -17,126 +22,176 @@ class _RegisterState extends State<Register> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: ListView(
-        children: [
-          InkWell(
-            onTap: () {
-              Navigator.pushReplacement(
-                  context, MaterialPageRoute(builder: (context) => Login()));
-            },
-            child: Padding(
-              padding: const EdgeInsets.only(left: 8.0, top: 25),
-              child: Row(
-                children: [
-                  Icon(Icons.arrow_back),
-                ],
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(10, 50, 10, 20),
-            child: Form(
-              key: _formKey,
-              child: Column(
-                children: [
-                  TextFormField(
-                    controller: username,
-                    maxLength: 100,
-                    maxLines: 1,
-                    decoration: InputDecoration(
-                      hintText: "Your Username",
-                      labelText: "Username",
-                      suffixIcon: Icon(Icons.verified_user_outlined),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                        borderSide: BorderSide(color: Colors.grey, width: 1),
-                      ),
+    return loading
+        ? Loading()
+        : Scaffold(
+            body: ListView(
+              children: [
+                InkWell(
+                  onTap: () {
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (context) => Login()));
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 8.0, top: 25),
+                    child: Row(
+                      children: [
+                        Icon(Icons.arrow_back),
+                      ],
                     ),
                   ),
-                  TextFormField(
-                    controller: email,
-                    maxLength: 100,
-                    maxLines: 1,
-                    decoration: InputDecoration(
-                      hintText: "Your Email Adress",
-                      labelText: "Email",
-                      suffixIcon: Icon(Icons.email_outlined),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                        borderSide: BorderSide(color: Colors.grey, width: 1),
-                      ),
-                    ),
-                  ),
-                  TextFormField(
-                    controller: password,
-                    maxLength: 100,
-                    maxLines: 1,
-                    decoration: InputDecoration(
-                      hintText: "Your Password",
-                      labelText: "Password",
-                      suffixIcon: Icon(Icons.lock_outline),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                        borderSide: BorderSide(color: Colors.grey, width: 1),
-                      ),
-                    ),
-                  ),
-                  TextFormField(
-                    controller: morepassword,
-                    maxLength: 100,
-                    maxLines: 1,
-                    decoration: InputDecoration(
-                      hintText: "More Password",
-                      labelText: "Password",
-                      suffixIcon: Icon(Icons.lock_outline),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                        borderSide: BorderSide(color: Colors.grey, width: 1),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 25),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
-                          child: Material(
-                            color: Colors.green[900],
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8.0),
-                            ),
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.only(top: 5.0, bottom: 5.0),
-                              child: FlatButton(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                color: Colors.green[900],
-                                child: Text(
-                                  "REGISTER",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                onPressed: () {},
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(10, 50, 10, 20),
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      children: [
+                        TextFormField(
+                            controller: username,
+                            maxLength: 100,
+                            maxLines: 1,
+                            decoration: InputDecoration(
+                              hintText: "Your Username",
+                              labelText: "Username",
+                              suffixIcon: Icon(Icons.verified_user_outlined),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8.0),
+                                borderSide:
+                                    BorderSide(color: Colors.grey, width: 1),
                               ),
                             ),
+                            // ignore: missing_return
+                            validator: (val) {
+                              if (val.isEmpty) {
+                                return "Username should not be empty";
+                              }
+                            }),
+                        TextFormField(
+                            controller: email,
+                            maxLength: 100,
+                            maxLines: 1,
+                            decoration: InputDecoration(
+                              hintText: "Your Email Adress",
+                              labelText: "Email",
+                              suffixIcon: Icon(Icons.email_outlined),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8.0),
+                                borderSide:
+                                    BorderSide(color: Colors.grey, width: 1),
+                              ),
+                            ),
+                            // ignore: missing_return
+                            validator: (val) {
+                              if (val.isEmpty) {
+                                return "Email is empty";
+                              }
+                            }),
+                        TextFormField(
+                          controller: password,
+                          maxLength: 100,
+                          maxLines: 1,
+                          obscureText: true,
+                          decoration: InputDecoration(
+                            hintText: "Your Password",
+                            labelText: "Password",
+                            suffixIcon: Icon(Icons.lock_outline),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8.0),
+                              borderSide:
+                                  BorderSide(color: Colors.grey, width: 1),
+                            ),
                           ),
+                          // ignore: missing_return
+                          validator: (val) {
+                            if (val.isEmpty) {
+                              return "Your password is empty";
+                            }
+                          },
                         ),
-                      )
-                    ],
-                  )
-                ],
-              ),
+                        TextFormField(
+                            controller: morepassword,
+                            maxLength: 100,
+                            maxLines: 1,
+                            obscureText: true,
+                            decoration: InputDecoration(
+                              hintText: "More Password",
+                              labelText: "Password",
+                              suffixIcon: Icon(Icons.lock_outline),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8.0),
+                                borderSide:
+                                    BorderSide(color: Colors.grey, width: 1),
+                              ),
+                            ),
+                            // ignore: missing_return
+                            validator: (val) {
+                              if (val != password.text || val.isEmpty) {
+                                return "Your password is not match";
+                              }
+                              if (val.length != 6) {
+                                return "Your password at least 6 characters minimum";
+                              }
+                            }),
+                        SizedBox(height: 25),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                    top: 5.0, bottom: 5.0),
+                                child: Material(
+                                  color: Colors.green[900],
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 5.0, bottom: 5.0),
+                                    child: FlatButton(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                      ),
+                                      color: Colors.green[900],
+                                      child: Text(
+                                        "REGISTER",
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      onPressed: () {
+                                        register();
+                                      },
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            )
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ),
-        ],
-      ),
-    );
+          );
+  }
+
+  ///Function register
+  void register() async {
+    if (_formKey.currentState.validate()) {
+      setState(() => loading = true);
+      await UserService().registerWithEmailPassword(
+        email: email.text,
+        password: password.text,
+      );
+
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => Wrapper()));
+    }
   }
 }

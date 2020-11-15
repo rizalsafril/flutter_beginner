@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "751284894025",
+    "firebase_url": "https://flutterbeginner-e3511.firebaseio.com",
+    "project_id": "flutterbeginner-e3511",
+    "storage_bucket": "flutterbeginner-e3511.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:751284894025:android:963c38c257489e3e9c8298",
+        "android_client_info": {
+          "package_name": "com.rz.flutter_beginner"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "751284894025-uio66iea5darkqfjjmn4c2jlhlcq61jj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rz.flutter_beginner",
+            "certificate_hash": "e8d937502a8e651f7afd8a832a96589eee87c31d"
+          }
+        },
+        {
+          "client_id": "751284894025-u4fpofrtdrangcrft1bc5k4th1l88aaj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyByePUt8b6rxPmzndEqCMv4uv5jk_EawpQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "751284894025-u4fpofrtdrangcrft1bc5k4th1l88aaj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

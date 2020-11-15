@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_beginner/data/menu.dart';
+import 'package:flutter_beginner/data/userservice/userservice.dart';
 import 'package:flutter_beginner/home/dashboard.dart';
 import 'package:flutter_beginner/home/profile.dart';
 
@@ -112,6 +113,7 @@ class _MyHomeState extends State<MyHome> {
                   children: [
                     InkWell(
                       onTap: () {
+                        UserService().signOut();
                         Navigator.pop(context);
                       },
                       child: Padding(
